@@ -1,0 +1,34 @@
+# Build output
+bin/
+obj/
+
+# Visual Studio / VS Code
+.vs/
+.vscode/
+*.user
+*.suo
+
+# NuGet
+*.nupkg
+**/packages/*
+!**/packages/build/
+
+# Test results
+[Tt]est[Rr]esult*/
+*.trx
+
+# Rider / other IDEs (harmless to include even if unused)
+.idea/
+
+# OS junk
+.DS_Store
+Thumbs.db
+
+# Publish output (from dotnet publish, self-contained builds)
+publish/
+*.pubxml.user
+
+# Secrets / local config — never commit real credentials
+appsettings.Development.json
+appsettings.Local.json
+.env

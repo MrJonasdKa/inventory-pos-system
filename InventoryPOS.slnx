@@ -1,0 +1,6 @@
+<Solution>
+  <Project Path="InventoryPOS.Client/InventoryPOS.Client.csproj" />
+  <Project Path="InventoryPOS.Core/InventoryPOS.Core.csproj" />
+  <Project Path="InventoryPOS.Data/InventoryPOS.Data.csproj" />
+  <Project Path="InventoryPOS.Tests/InventoryPOS.Tests.csproj" />
+</Solution>
