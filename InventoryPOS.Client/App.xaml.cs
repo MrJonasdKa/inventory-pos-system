@@ -47,6 +47,8 @@ public partial class App : Application
         services.AddScoped<IUserRepository, UserRepository>();
         services.AddScoped<ISupplierRepository, SupplierRepository>();
         services.AddScoped<IStockMovementRepository, StockMovementRepository>();
+        services.AddScoped<ISaleRepository, SaleRepository>();
+        services.AddScoped<IPurchaseOrderRepository, PurchaseOrderRepository>();
 
         Services = services.BuildServiceProvider();
 
