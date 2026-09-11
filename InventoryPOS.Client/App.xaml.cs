@@ -5,6 +5,8 @@ using InventoryPOS.Core.Interfaces;
 using InventoryPOS.Core.Models;
 using InventoryPOS.Data;
 using InventoryPOS.Data.Repositories;
+using InventoryPOS.Core.Services;
+using InventoryPOS.Client.ViewModels;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -50,7 +52,21 @@ public partial class App : Application
         services.AddScoped<ISaleRepository, SaleRepository>();
         services.AddScoped<IPurchaseOrderRepository, PurchaseOrderRepository>();
 
+        services.AddSingleton<ICurrentSession, CurrentSession>();
+        services.AddScoped<IAuthService, AuthService>();
+        services.AddTransient<LoginWindow>();
+        services.AddTransient<LoginViewModel>();
+
         Services = services.BuildServiceProvider();
+
+        var loginWindow = Services.GetRequiredService<LoginWindow>();
+        var result = loginWindow.ShowDialog();
+
+        if (result != true)
+        {
+            Shutdown();
+            return;
+        }
 
         var mainWindow = new MainWindow();
         mainWindow.Show();
