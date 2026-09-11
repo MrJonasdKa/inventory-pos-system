@@ -2,8 +2,12 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:local="clr-namespace:InventoryPOS.Client"
-             StartupUri="MainWindow.xaml">
+             StartupUri="MainWindow.xaml"
+             xmlns:vm="clr-namespace:InventoryPOS.Client.ViewModels"
+             xmlns:views="clr-namespace:InventoryPOS.Client.Views">
     <Application.Resources>
-         
+        <DataTemplate DataType="{x:Type vm:PlaceholderViewModel}">
+            <views:PlaceholderView/>
+        </DataTemplate>
     </Application.Resources>
 </Application>
