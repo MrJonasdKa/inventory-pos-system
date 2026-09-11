@@ -7,6 +7,7 @@ using InventoryPOS.Data;
 using InventoryPOS.Data.Repositories;
 using InventoryPOS.Core.Services;
 using InventoryPOS.Client.ViewModels;
+using InventoryPOS.Client.Services;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -57,6 +58,11 @@ public partial class App : Application
         services.AddTransient<LoginWindow>();
         services.AddTransient<LoginViewModel>();
 
+        services.AddSingleton<INavigationService, NavigationService>();
+        services.AddTransient<ShellViewModel>();
+        services.AddTransient<PlaceholderViewModel>();
+        services.AddTransient<MainWindow>();
+
         Services = services.BuildServiceProvider();
 
         var loginWindow = Services.GetRequiredService<LoginWindow>();
@@ -68,7 +74,7 @@ public partial class App : Application
             return;
         }
 
-        var mainWindow = new MainWindow();
+        var mainWindow = Services.GetRequiredService<MainWindow>();
         mainWindow.Show();
     }
 }
