@@ -22,7 +22,7 @@ public partial class ShellViewModel : ObservableObject
     }
 
     [RelayCommand]
-    private void NavigateToInventory() => _navigationService.NavigateTo<PlaceholderViewModel>();
+    private void NavigateToInventory() => _navigationService.NavigateTo<InventoryViewModel>();
 
     [RelayCommand]
     private void NavigateToPos() => _navigationService.NavigateTo<PlaceholderViewModel>();

@@ -1,0 +1,19 @@
+using System.Windows.Controls;
+using InventoryPOS.Client.ViewModels;
+using System.Windows;
+
+namespace InventoryPOS.Client.Views;
+
+public partial class InventoryView : UserControl
+{
+    public InventoryView()
+    {
+        InitializeComponent();
+    }
+
+    private async void UserControl_Loaded(object sender, RoutedEventArgs e)
+    {
+        if (DataContext is InventoryViewModel vm)
+            await vm.LoadCommand.ExecuteAsync(null);
+    }
+}
