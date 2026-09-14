@@ -1,4 +1,6 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
+using System.Threading.Tasks;
 using System.Windows;
 using Dapper;
 using InventoryPOS.Core.Interfaces;
@@ -17,8 +19,34 @@ public partial class App : Application
 {
     public static IServiceProvider Services { get; private set; } = null!;
 
+    private static void LogCrash(Exception? ex)
+    {
+        try
+        {
+            var logPath = Path.Combine(AppContext.BaseDirectory, "error.log");
+            var entry = $"[{DateTime.Now:yyyy-MM-dd HH:mm:ss}]\n{ex}\n\n";
+            File.AppendAllText(logPath, entry);
+        }
+        catch
+        {
+            
+        }
+    }
+
     protected override void OnStartup(StartupEventArgs e)
     {
+        AppDomain.CurrentDomain.UnhandledException += (s, args) =>
+            LogCrash(args.ExceptionObject as Exception);
+
+        DispatcherUnhandledException += (s, args) =>
+        {
+            LogCrash(args.Exception);
+            args.Handled = true;
+            MessageBox.Show(
+                "An unexpected error occurred. Check error.log next to the application for details.",
+                "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+        };
+
         base.OnStartup(e);
 
         SqlMapper.AddTypeHandler(new EnumStringTypeHandler<MovementType>());
@@ -65,16 +93,19 @@ public partial class App : Application
 
         Services = services.BuildServiceProvider();
 
+        ShutdownMode = ShutdownMode.OnExplicitShutdown; // prevent auto-shutdown when LoginWindow closes
+
         var loginWindow = Services.GetRequiredService<LoginWindow>();
         var result = loginWindow.ShowDialog();
-
+        
         if (result != true)
         {
             Shutdown();
             return;
         }
-
+        
         var mainWindow = Services.GetRequiredService<MainWindow>();
+        ShutdownMode = ShutdownMode.OnMainWindowClose; // now behave normally: closing MainWindow exits the app
         mainWindow.Show();
     }
 }
