@@ -9,6 +9,7 @@ using InventoryPOS.Data;
 using InventoryPOS.Data.Repositories;
 using InventoryPOS.Core.Services;
 using InventoryPOS.Client.ViewModels;
+using InventoryPOS.Client.Views;
 using InventoryPOS.Client.Services;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -90,6 +91,8 @@ public partial class App : Application
         services.AddTransient<ShellViewModel>();
         services.AddTransient<PlaceholderViewModel>();
         services.AddTransient<MainWindow>();
+
+        services.AddTransient<InventoryViewModel>();
 
         Services = services.BuildServiceProvider();
 
