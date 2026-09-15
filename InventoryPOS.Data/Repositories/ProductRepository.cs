@@ -103,4 +103,17 @@ public class ProductRepository : IProductRepository
             "UPDATE products SET is_active = 0 WHERE id = @Id",
             new { Id = id });
     }
+
+    public async Task<IEnumerable<ProductListItem>> GetAllWithStockAsync()
+    {
+        using var connection = _connectionFactory.CreateConnection();
+        return await connection.QueryAsync<ProductListItem>(
+            @"SELECT p.id, p.sku, p.name,
+                     p.unit_price AS UnitPrice, p.reorder_threshold AS ReorderThreshold,
+                     COALESCE(sl.quantity_on_hand, 0) AS QuantityOnHand
+              FROM products p
+              LEFT JOIN stock_levels sl ON sl.product_id = p.id
+              WHERE p.is_active = 1
+              ORDER BY p.name");
+    }
 }

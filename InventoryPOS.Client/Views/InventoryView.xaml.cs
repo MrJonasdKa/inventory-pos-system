@@ -1,6 +1,6 @@
+using System.Windows;
 using System.Windows.Controls;
 using InventoryPOS.Client.ViewModels;
-using System.Windows;
 
 namespace InventoryPOS.Client.Views;
 

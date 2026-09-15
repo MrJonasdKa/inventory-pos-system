@@ -8,13 +8,17 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <TextBlock Grid.Row="0" Text="Inventory" FontSize="22" FontWeight="Bold" Margin="0,0,0,12"/>
+        <DockPanel Grid.Row="0" Margin="0,0,0,12">
+            <Button DockPanel.Dock="Right" Content="Add Product" Command="{Binding OpenAddProductCommand}"/>
+            <TextBlock Text="Inventory" FontSize="22" FontWeight="Bold"/>
+        </DockPanel>
 
         <DataGrid Grid.Row="1" ItemsSource="{Binding Products}" AutoGenerateColumns="False" IsReadOnly="True">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="SKU" Binding="{Binding Sku}"/>
                 <DataGridTextColumn Header="Name" Binding="{Binding Name}"/>
                 <DataGridTextColumn Header="Unit Price" Binding="{Binding UnitPrice, StringFormat=C}"/>
+                <DataGridTextColumn Header="Stock" Binding="{Binding QuantityOnHand}"/>
                 <DataGridTextColumn Header="Reorder At" Binding="{Binding ReorderThreshold}"/>
             </DataGrid.Columns>
         </DataGrid>

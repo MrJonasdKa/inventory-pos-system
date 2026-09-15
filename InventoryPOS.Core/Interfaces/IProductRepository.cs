@@ -10,4 +10,5 @@ public interface IProductRepository
     Task<int> CreateAsync(Product product);
     Task UpdateAsync(Product product);
     Task DeactivateAsync(int id);
+    Task<IEnumerable<ProductListItem>> GetAllWithStockAsync();
 }
