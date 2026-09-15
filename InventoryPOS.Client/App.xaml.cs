@@ -94,6 +94,9 @@ public partial class App : Application
 
         services.AddTransient<InventoryViewModel>();
 
+        services.AddTransient<AddProductWindow>();
+        services.AddTransient<AddProductViewModel>();
+
         Services = services.BuildServiceProvider();
 
         ShutdownMode = ShutdownMode.OnExplicitShutdown; // prevent auto-shutdown when LoginWindow closes
