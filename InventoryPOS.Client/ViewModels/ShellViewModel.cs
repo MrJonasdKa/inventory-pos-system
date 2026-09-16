@@ -25,7 +25,7 @@ public partial class ShellViewModel : ObservableObject
     private void NavigateToInventory() => _navigationService.NavigateTo<InventoryViewModel>();
 
     [RelayCommand]
-    private void NavigateToPos() => _navigationService.NavigateTo<PlaceholderViewModel>();
+    private void NavigateToPos() => _navigationService.NavigateTo<POSViewModel>();
 
     [RelayCommand]
     private void NavigateToReports() => _navigationService.NavigateTo<PlaceholderViewModel>();
