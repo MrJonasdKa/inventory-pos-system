@@ -1,0 +1,22 @@
+<UserControl x:Class="InventoryPOS.Client.Views.ReportsView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:lvc="clr-namespace:LiveChartsCore.SkiaSharpView.WPF;assembly=LiveChartsCore.SkiaSharpView.WPF"
+             Loaded="UserControl_Loaded">
+    <ScrollViewer>
+        <StackPanel Margin="0,0,0,16">
+            <TextBlock Text="Reports" FontSize="22" FontWeight="Bold" Margin="0,0,0,12"/>
+
+            <TextBlock Text="{Binding TotalStockValue, StringFormat='Total Stock Value: {0:C}'}"
+                       FontSize="16" FontWeight="Bold" Margin="0,0,0,16"/>
+
+            <TextBlock Text="Sales — Last 30 Days" FontWeight="Bold" Margin="0,0,0,4"/>
+            <lvc:CartesianChart Series="{Binding SalesSeries}" Height="240" Margin="0,0,0,16"/>
+
+            <TextBlock Text="Top 5 Products by Revenue" FontWeight="Bold" Margin="0,0,0,4"/>
+            <lvc:CartesianChart Series="{Binding TopProductsSeries}" Height="240"/>
+
+            <TextBlock Text="{Binding ErrorMessage}" Foreground="Red" Margin="0,12,0,0"/>
+        </StackPanel>
+    </ScrollViewer>
+</UserControl>
