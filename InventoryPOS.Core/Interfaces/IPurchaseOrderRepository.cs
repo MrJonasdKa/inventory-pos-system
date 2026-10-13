@@ -15,4 +15,5 @@ public interface IPurchaseOrderRepository
     Task<PurchaseOrder?> GetByIdAsync(int id);
     Task<IEnumerable<PurchaseOrderItem>> GetItemsByOrderIdAsync(int purchaseOrderId);
     Task ReceiveAsync(int purchaseOrderId, int receivedByUserId);
+    Task<IEnumerable<PurchaseOrder>> GetPendingAsync();
 }

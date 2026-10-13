@@ -99,6 +99,10 @@ public partial class App : Application
 
         services.AddTransient<POSViewModel>();
 
+        services.AddScoped<IReportRepository, ReportRepository>();
+        services.AddTransient<ReportsViewModel>();
+        services.AddTransient<PurchaseOrdersViewModel>();
+
         Services = services.BuildServiceProvider();
 
         ShutdownMode = ShutdownMode.OnExplicitShutdown; // prevent auto-shutdown when LoginWindow closes

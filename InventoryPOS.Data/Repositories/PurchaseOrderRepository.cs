@@ -147,4 +147,12 @@ public class PurchaseOrderRepository : IPurchaseOrderRepository
             throw;
         }
     }
+    public async Task<IEnumerable<PurchaseOrder>> GetPendingAsync()
+    {
+        using var connection = _connectionFactory.CreateConnection();
+        return await connection.QueryAsync<PurchaseOrder>(
+            @"SELECT id, supplier_id AS SupplierId, status, created_by AS CreatedBy, created_at AS CreatedAt
+              FROM purchase_orders WHERE status = 'pending' ORDER BY created_at",
+            transaction: null);
+    }
 }

@@ -1,0 +1,65 @@
+<UserControl x:Class="InventoryPOS.Client.Views.PurchaseOrdersView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             Loaded="UserControl_Loaded">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="16"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <StackPanel Grid.Column="0">
+            <TextBlock Text="New Purchase Order" FontSize="20" FontWeight="Bold" Margin="0,0,0,12"/>
+
+            <TextBlock Text="Supplier"/>
+            <ComboBox ItemsSource="{Binding Suppliers}" SelectedItem="{Binding SelectedSupplier}"
+                      DisplayMemberPath="Name" Margin="0,0,0,8"/>
+
+            <TextBlock Text="Product"/>
+            <ComboBox ItemsSource="{Binding AvailableProducts}" SelectedItem="{Binding SelectedProduct}"
+                      DisplayMemberPath="Name" Margin="0,0,0,8"/>
+
+            <TextBlock Text="Quantity"/>
+            <TextBox Text="{Binding QuantityInput}" Margin="0,0,0,8"/>
+
+            <TextBlock Text="Unit Cost"/>
+            <TextBox Text="{Binding UnitCostInput}" Margin="0,0,0,8"/>
+
+            <Button Content="Add Item" Command="{Binding AddToPoCartCommand}" Margin="0,0,0,12"/>
+
+            <DataGrid ItemsSource="{Binding PoCart}" AutoGenerateColumns="False" IsReadOnly="True" Height="120">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Product" Binding="{Binding Name}"/>
+                    <DataGridTextColumn Header="Qty" Binding="{Binding QuantityOrdered}"/>
+                    <DataGridTextColumn Header="Unit Cost" Binding="{Binding UnitCost, StringFormat=C}"/>
+                </DataGrid.Columns>
+            </DataGrid>
+
+            <Button Content="Create Purchase Order" Command="{Binding CreatePurchaseOrderCommand}" Margin="0,12,0,0" Height="32"/>
+            <TextBlock Text="{Binding ErrorMessage}" Foreground="Red" Margin="0,8,0,0"/>
+            <TextBlock Text="{Binding SuccessMessage}" Foreground="Green" Margin="0,4,0,0"/>
+        </StackPanel>
+
+        <StackPanel Grid.Column="2">
+            <TextBlock Text="Pending Orders" FontSize="20" FontWeight="Bold" Margin="0,0,0,12"/>
+            <DataGrid ItemsSource="{Binding PendingOrders}" AutoGenerateColumns="False" IsReadOnly="True">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Order #" Binding="{Binding Id}"/>
+                    <DataGridTextColumn Header="Status" Binding="{Binding Status}"/>
+                    <DataGridTextColumn Header="Created" Binding="{Binding CreatedAt}"/>
+                    <DataGridTemplateColumn Header="">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Button Content="Receive"
+                                        Command="{Binding DataContext.ReceiveOrderCommand,
+                                                  RelativeSource={RelativeSource AncestorType=UserControl}}"
+                                        CommandParameter="{Binding}"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                </DataGrid.Columns>
+            </DataGrid>
+        </StackPanel>
+    </Grid>
+</UserControl>
