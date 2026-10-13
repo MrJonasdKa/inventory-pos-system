@@ -14,5 +14,11 @@
         <DataTemplate DataType="{x:Type vm:POSViewModel}">
             <views:POSView/>
         </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:ReportsViewModel}">
+            <views:ReportsView/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:PurchaseOrdersViewModel}">
+            <views:PurchaseOrdersView/>
+        </DataTemplate>
     </Application.Resources>
 </Application>
